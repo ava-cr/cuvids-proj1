@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'querysite/main.css'%}">
+    <title>Query Responses</title>
+</head>
+<body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="{% url 'querysite-home' %}">Django Query Site</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{% url 'querysite-home' %}">Home</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main role="main" class="container">
+    {% if codes %}
+        {% if video_num != '' and user_id != '' %}
+        <h2>Watch History of Video {{ video_num }} for User {{ user_id }} </h2>
+        {% elif video_num != '' and user_id == '' %}
+        <h2>Video {{ video_num }} Watch Log</h2>
+        {% else %}
+        <h2>Watch History for User {{ user_id }} </h2>
+        {% endif %}
+        <h2> Total watches: {{ total_watches }}</h2>
+           {% if not video_num %}
+           <h3> Timestamp | Video number | Speed </h3>
+           {% else %}
+          <h3> Speeds video {{ video_num }} was watched at: </h3>
+           {% endif %}
+          <div class="row">
+            <div class="col-md-8">
+                {% for code in codes %}
+                    <article class="media content-section">
+                      <div class="media-body">
+                        <h4><a class="article-title" href="#"> {{ code.0 }} | {{ code.1 }} </a></h4>
+                      </div>
+                    </article>
+                {% endfor %}
+            </div>
+          </div>
+    {% else %}
+        <h2>No Data for {% if video_num != '' and user_id != 0 %}
+            User {{ user_id }} and Video {{ video_num }}
+            {% elif video_num != '' %} Video {{ video_num }}
+            {% else %} User {{ user_id }} {% endif %} </h2>
+    {% endif %}
+    </main>
+</body>
+</html>

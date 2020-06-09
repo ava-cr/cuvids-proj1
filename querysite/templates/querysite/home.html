@@ -1,0 +1,83 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'querysite/main.css'%}">
+    <title>Query Site</title>
+</head>
+<body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="{% url 'querysite-home' %}">Django Query Site</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{% url 'querysite-home' %}">Home</a>
+              <a class="nav-item nav-link" href="{% url 'count' %}">Query Count</a>
+              <a class="nav-item nav-link" href="{% url 'clear' %}">Clear Database</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main role="main" class="container">
+        <div class="col-md-8">
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+        <div class="content-section">
+          <form method="GET" action="{% url 'responses' %}">
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Query Form</legend>
+                <!-- <p class='text-muted'>Just type in a 3 letter department code like COS and optionally
+                a course number in the form COS/598. </p> -->
+                <p class='text-muted'>Enter a video # to see the speeds it has been watched at.</p>
+                    <!-- <input type="text" name="query"> -->
+                    <input type="text" name="video_num">
+            </fieldset>
+
+            <fieldset class="form-group">
+                <!-- <p class='text-muted'>Just type in a 3 letter department code like COS and optionally
+                a course number in the form COS/598. </p> -->
+                <p> OR </p>
+                <p class='text-muted'>Enter a user id to see their watch history. </p>
+                    <!-- <input type="text" name="query"> -->
+                    <input type="text" name="user_id">
+
+            </fieldset>
+            <p> * fill in both fields to see whether the video has been watched by the user. </p>
+
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Submit</button>
+            </div>
+          </form>
+    </div>
+    <!--
+        <div class="col-md-4">
+          <div class="content-section">
+            <h3>Query</h3>
+            <p class='text-muted'>Just type in a 3 letter department code like COS and optionally
+                a course number like COS/598.
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light">DEP/[num]</li>
+              </ul>
+            </p>
+          </div> -->
+    </main>
+</body>
+</html>
