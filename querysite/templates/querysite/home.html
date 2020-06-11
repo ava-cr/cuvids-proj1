@@ -1,9 +1,10 @@
 {% load static %}
-{% load crispy_forms_tags %}
+<!--{% load crispy_forms_tags %} -->
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Required meta tags -->
+
+   <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -45,20 +46,24 @@
               <form method="GET" action="{% url 'responses' %}">
                 <fieldset class="form-group">
                     <legend class="border-bottom mb-4">Query Form</legend>
-                    <!-- <p class='text-muted'>Just type in a 3 letter department code like COS and optionally
-                    a course number in the form COS/598. </p> -->
                     <p class='text-muted'>Enter a video # to see the speeds it has been watched at.</p>
-                        <!-- <input type="text" name="query"> -->
-                        <input type="text" name="video_num">
+                        <select class="custom-select" name='dropdown_vid'>
+                            <option value=''>All Videos</option>
+                            {% for vid in vids %}
+                            <option>{{ vid }}</option>
+                            {% endfor %}
+                        </select>
                 </fieldset>
 
                 <fieldset class="form-group">
-                    <!-- <p class='text-muted'>Just type in a 3 letter department code like COS and optionally
-                    a course number in the form COS/598. </p> -->
                     <p> OR </p>
                     <p class='text-muted'>Enter a user id to see their watch history. </p>
-                        <!-- <input type="text" name="query"> -->
-                        <input type="text" name="user_id">
+                        <select class="custom-select" name='dropdown_user'>
+                            <option value=''>All Users</option>
+                            {% for user in users %}
+                            <option>{{ user }}</option>
+                            {% endfor %}
+                        </select>
 
                 </fieldset>
                 <p> * fill in both fields to see whether the video has been watched by the user. </p>
@@ -75,22 +80,17 @@
             <p class='text-muted'>2. Speeds a video is watched at. </p>
             <p class='text-muted'>3. Total watches by a user. </p>
             <p class='text-muted'>4. User watch history: time, video, speed. </p>
-            <p class='text-muted'>5. Watches of a specific video by a specific user. </p>
+            <p class='text-muted'>5. Watch graph of a specific video by a specific user. </p>
           </div>
         </div>
     </div>
-
-    <!--
-        <div class="col-md-4">
-          <div class="content-section">
-            <h3>Query</h3>
-            <p class='text-muted'>Just type in a 3 letter department code like COS and optionally
-                a course number like COS/598.
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-light">DEP/[num]</li>
-              </ul>
-            </p>
-          </div> -->
     </main>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
 </body>
 </html>

@@ -8,3 +8,12 @@ class Query(models.Model):
 
     def __str__(self):
         return self.number
+
+
+class WatchData(models.Model):
+    date = models.CharField(max_length=10)
+    time = models.CharField(max_length=25)
+    speed = models.FloatField()
+    timestamp = models.FloatField()
+    user_id = models.IntegerField()
+    vid_num = models.IntegerField()

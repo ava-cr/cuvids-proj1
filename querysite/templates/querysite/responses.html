@@ -28,37 +28,41 @@
       </nav>
     </header>
     <main role="main" class="container">
-    {% if codes %}
+
         {% if video_num != '' and user_id != '' %}
-        <h2>Watch History of Video {{ video_num }} for User {{ user_id }} </h2>
+        <legend class="border-bottom mb-4">Watch Pattern Graph<br>User: '{{ user_id }}'<br>Video: '{{ video_num }}'</legend>
         {% elif video_num != '' and user_id == '' %}
         <h2>Video {{ video_num }} Watch Log</h2>
         {% else %}
         <h2>Watch History for User {{ user_id }} </h2>
         {% endif %}
         <h2> Total watches: {{ total_watches }}</h2>
-           {% if not video_num %}
+           {% if user_id and not video_num %}
            <h3> Timestamp | Video number | Speed </h3>
-           {% else %}
-          <h3> Speeds video {{ video_num }} was watched at: </h3>
+           {% elif video_num and not user_id %}
+          <h3> Number of times video {{ video_num }} was watched at each speed </h3>
            {% endif %}
           <div class="row">
             <div class="col-md-8">
                 {% for code in codes %}
                     <article class="media content-section">
                       <div class="media-body">
-                        <h4><a class="article-title" href="#"> {{ code.0 }} | {{ code.1 }} </a></h4>
+                        <h4> {{ code.0 }} | {{ code.1 }} </h4>
+                       <!-- <p> {{ user_choice }} </p> -->
                       </div>
                     </article>
                 {% endfor %}
+                {% if video_num != '' and user_id != '' %}
+                <img src="{% static img_path %}" alt="{{ img_path }}">
+                {% endif %}
             </div>
           </div>
-    {% else %}
-        <h2>No Data for {% if video_num != '' and user_id != 0 %}
-            User {{ user_id }} and Video {{ video_num }}
-            {% elif video_num != '' %} Video {{ video_num }}
-            {% else %} User {{ user_id }} {% endif %} </h2>
-    {% endif %}
+    <!--
+    <h2>No Data for {% if video_num != '' and user_id != 0 %}
+        User {{ user_id }} and Video {{ video_num }}
+        {% elif video_num != '' %} Video {{ video_num }}
+        {% else %} User {{ user_id }} {% endif %} </h2> -->
+
     </main>
 </body>
 </html>
