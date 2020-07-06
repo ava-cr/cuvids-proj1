@@ -14,7 +14,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'querysite/main.css'%}">
     <title>Query Site</title>
 </head>
-<body>
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
@@ -27,6 +26,7 @@
               <a class="nav-item nav-link" href="{% url 'querysite-home' %}">Home</a>
               <a class="nav-item nav-link" href="{% url 'count' %}">Query Count</a>
               <a class="nav-item nav-link" href="{% url 'clear' %}">Clear Database</a>
+              <a class="nav-item nav-link" href="{% url 'redash' %}">Redash</a>
           </div>
         </div>
       </nav>
@@ -66,15 +66,55 @@
                         </select>
 
                 </fieldset>
-                <p> * fill in both fields to see whether the video has been watched by the user. </p>
+                <p class='text-muted'> Fill in both fields to see whether the video has been watched by the user. </p>
 
                 <div class="form-group">
                     <button class="btn btn-outline-info" type="submit">Submit</button>
                 </div>
               </form>
           </div>
-          <div class="col-md-4">
-          <div class="content-section">
+          <div class="col-md-6">
+
+            <div class="content-section">
+              <form method="GET" action="{% url 'generate_csv' %}">
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">CSV Report Form</legend>
+                    <p class='text-muted'>Choose a report type: </p>
+                      <select class="custom-select" name='dropdown_report'>
+                          <option value='user'>user_table: user id | email | total time | video ids</option>
+                          <option value='video'>video_table: video id | total time | user emails</option>
+                          <option value='user_video'>user_video: users (rows) | videos (columns)</option>
+                          <option value='question_table'>question_table: users (rows) | questions (columns)</option>
+                      </select>
+                    <p></p>
+                    <input type="checkbox" name="emailbool">
+                    <label class="text-muted">Filter by Email Domain</label>
+                    <input type="text" name="emaildomain" autocapitalize="off" class="form-control" placeholder="@example.com">
+                    <p></p>
+
+                    <input type="checkbox" name="datebool">
+                    <label class="text-muted">Filter by Date</label>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">From</span>
+                        <input type="text" name="startdate" class="form-control" placeholder="DD/MM/YYYY">
+                        <span class="input-group-text">To</span>
+                        <input type="text" name="enddate" class="form-control" placeholder="DD/MM/YYYY">
+                    </div>
+                    <small class="form-text text-muted"> *inclusive </small>
+
+
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Generate</button>
+                </div>
+            </form>
+
+          </div>
+
+        </div>
+
+        <!--
+        <div class="content-section">
             <legend class="border-bottom mb-4">Possible Queries</legend>
             <p class='text-muted'>1. Total watches of a video. </p>
             <p class='text-muted'>2. Speeds a video is watched at. </p>
@@ -82,7 +122,7 @@
             <p class='text-muted'>4. User watch history: time, video, speed. </p>
             <p class='text-muted'>5. Watch graph of a specific video by a specific user. </p>
           </div>
-        </div>
+        -->
     </div>
     </main>
     <!-- Optional JavaScript -->

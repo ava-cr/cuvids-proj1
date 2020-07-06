@@ -23,4 +23,5 @@ urlpatterns = [
     path('responses/', query_views.responses, name='responses'),
     path('count/', query_views.count, name='count'),
     path('clear/', query_views.clear, name='clear'),
+    path('generate_csv/', query_views.generate_csv, name='generate_csv'),
 ]
