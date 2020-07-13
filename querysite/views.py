@@ -58,11 +58,11 @@ def generate_csv(request):
 
     # column headers
     if csv_type == 'user':
-        writer.writerow(['User Id', 'Student Email',
+        writer.writerow(['Student Emails',
                          'Total Time', 'Video Ids'])
     elif csv_type == 'video':
         writer.writerow(['Video Id', 'Total Time',
-                         'User Ids'])
+                         'Student Emails'])
     elif csv_type == 'user_video':
         last_vid = fetch.get_vids()[-1]
         header = ['']
@@ -167,14 +167,14 @@ def generate_csv(request):
                     matrix[row][0] = email
                 else:
                     continue
-                for question in fetch.get_correct_for_user(user):
-                    print(f'question {question}')
-                    if question < 95:
-                        matrix[row][question] = '1'
                 for question in fetch.get_incorrect_for_user(user):
                     print(f'question {question}')
                     if question < 95:
                         matrix[row][question] = '-1'
+                for question in fetch.get_correct_for_user(user):
+                    print(f'question {question}')
+                    if question < 95:
+                        matrix[row][question] = '1'
                 row += 1
 
             writer.writerows(matrix)
